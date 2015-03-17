@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.jirawat.karaf</groupId>
+    <artifactId>karaf-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>jirawat.com :: Parent POM for Karaf Projects</name>
+    <description>
+        Maven Parent POM for jirawat.com Karaf Projects.
+        All jirawat.com Karaf projects should use this as the parent POM.
+        It keeps dependency versions consistent across
+        multiple projects.
+    </description>
+    <properties>
+        <!-- maven-compiler-plugin setting.
+             Karaf 3.0.3 runs on Java 7 or later -->
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.reportEncoding>UTF-8</project.build.reportEncoding>
+        <karaf.version>3.0.3</karaf.version>
+        <!-- Apache Felix OSGI version for Karaf 3.0.3
+             Copied from
+             https://repo1.maven.org/maven2/org/apache/karaf/karaf/3.0.3/karaf-3.0.3.pom
+        -->
+        <felix.framework.version>4.2.1</felix.framework.version>
+        <osgi.version>5.0.0</osgi.version>
+        <osgi.compendium.version>5.0.0</osgi.compendium.version>
+        <camel.version>2.15.0</camel.version>
+        <!-- Use the same components as Camel 2.15.0
+             https://repo1.maven.org/maven2/org/apache/camel/camel-parent/2.15.0/camel-parent-2.15.0.pom
+        -->
+        <cxf.version>3.0.4</cxf.version>
+        <cxf-version-range>[2.7,4.0)</cxf-version-range>
+        <cxf-xjc-utils.version>3.0.2</cxf-xjc-utils.version>
+        <spring.osgi.version>1.2.1</spring.osgi.version>
+        <spring31.version>3.1.4.RELEASE</spring31.version>
+        <spring32.version>3.2.11.RELEASE_1</spring32.version>
+        <spring40.version>4.0.7.RELEASE_1</spring40.version>
+        <spring41.version>4.1.2.RELEASE_1</spring41.version>
+        <spring.security31.version>3.1.4.RELEASE</spring.security31.version>
+        <hawtio.version>1.4.45</hawtio.version>
+        <jackson.version>1.9.13</jackson.version>
+        <karaf-shell-log.version>2.3.9</karaf-shell-log.version>
+        <insight-log.version>7.2.0.redhat-060</insight-log.version>
+        <commons-lang.version>2.6</commons-lang.version>
+        <jvnet.version>0.6.5</jvnet.version>
+        <junit.version>4.12</junit.version>
+        <!-- Maven Plugin version used by the jirawat.com Karaf project.
+             For consistency, please try to use the same version of the Maven plugins across all Connector OSGi projects
+             unless there is a good rationale.
+        -->
+        <antrun.plugin.version>1.7</antrun.plugin.version>
+        <resources.plugin.version>2.6</resources.plugin.version>
+        <bundle.plugin.version>2.5.3</bundle.plugin.version>
+        <compiler.plugin.version>3.2</compiler.plugin.version>
+        <war.plugin.version>2.5</war.plugin.version>
+        <install.plugin.version>2.5.2</install.plugin.version>
+        <deploy.plugin.version>2.8.2</deploy.plugin.version>
+        <javadoc.plugin.version>2.10.1</javadoc.plugin.version>
+        <site.plugin.version>3.4</site.plugin.version>
+        <build-helper.plugin.version>1.9.1</build-helper.plugin.version>
+        <!-- Using older 2.1 of maven-dependency-plugin because later releases downloads SNAPSHOT 
+             distribution into Nexus with timestamps in the filename -->
+        <dependency.plugin.version>2.1</dependency.plugin.version>   
+        <!-- Karaf Maven Plugin 3.0.2 has bug uploading to password protected Nexus Repo -->
+        <karaf.plugin.version>3.0.3</karaf.plugin.version>
+    </properties>
+    <scm>
+        <connection>
+        scm:git:https://github.com/juttayaya/karaf
+        </connection>
+        <developerConnection>
+        scm:git:https://github.com/juttayaya/karaf
+        </developerConnection>
+    </scm>
+    <prerequisites>
+        <maven>3.0.3</maven>
+    </prerequisites>
+</project>
