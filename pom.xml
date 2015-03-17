@@ -69,10 +69,10 @@
     </properties>
     <scm>
         <connection>
-        scm:git:https://github.com/juttayaya/karaf
+        scm:git:https://github.com/juttayaya/karaf.git
         </connection>
         <developerConnection>
-        scm:git:https://github.com/juttayaya/karaf
+        scm:git:https://github.com/juttayaya/karaf.git
         </developerConnection>
     </scm>
     <prerequisites>
