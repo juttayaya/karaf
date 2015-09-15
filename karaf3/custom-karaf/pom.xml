@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <groupId>com.jirawat.karaf</groupId>
+    <artifactId>custom-karaf-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>jirawat.com :: Parent POM for Custom Karaf</name>
+    <description>Maven Parent POM for Custom Karaf server - Dekantar</description>
+    <scm>
+        <connection>
+        scm:git:https://github.com/juttayaya/karaf.git
+        </connection>
+        <developerConnection>
+        scm:git:https://github.com/juttayaya/karaf.git
+        </developerConnection>
+    </scm>
+    <prerequisites>
+        <maven>3.0.3</maven>
+    </prerequisites>
+
+    <properties>
+        <karaf.version>3.0.4</karaf.version>
+        <!-- maven-compiler-plugin setting.
+             Karaf 3 runs on Java 7 or later -->
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.reportEncoding>UTF-8</project.build.reportEncoding>
+        <!-- Specific Maven Plugin Versions -->
+        <!-- Karaf Maven Plugin does not have to be same as Karaf Server version
+             For example, Karaf Maven Plugin 3.0.2 has bug uploading to password protected Nexus Repo
+             So I used Karaf Maven Plugin 3.0.3 to build a Karaf 3.0.2 Server -->
+        <karaf.plugin.version>${karaf.version}</karaf.plugin.version>
+        <antrun.plugin.version>1.7</antrun.plugin.version>
+        <resources.plugin.version>2.6</resources.plugin.version>
+        <bundle.plugin.version>2.5.3</bundle.plugin.version>
+        <compiler.plugin.version>3.2</compiler.plugin.version>
+        <!-- Using older 2.1 of maven-dependency-plugin because later releases downloads SNAPSHOT
+             distribution into Nexus with timestamps in the filename -->
+        <dependency.plugin.version>2.1</dependency.plugin.version>
+
+    </properties>
+    <modules>
+        <module>custom-karaf-branding</module>
+        <module>custom-karaf-server</module>
+    </modules>
+    <dependencyManagement>
+        <!-- Import Karaf POM to use the correct version of the Karaf dependencies -->
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.karaf</groupId>
+                <artifactId>karaf</artifactId>
+                <version>${karaf.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.karaf.tooling</groupId>
+                    <artifactId>karaf-maven-plugin</artifactId>
+                    <version>${karaf.plugin.version}</version>
+                    <extensions>true</extensions>
+                </plugin>
+               <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${compiler.plugin.version}</version>
+                    <configuration>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
+                   </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${resources.plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>${antrun.plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${dependency.plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <version>${bundle.plugin.version}</version>
+                    <extensions>true</extensions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>
