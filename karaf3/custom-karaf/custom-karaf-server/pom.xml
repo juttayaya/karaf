@@ -85,6 +85,10 @@
                 <artifactId>karaf-maven-plugin</artifactId>
                 <configuration>
                     <karafVersion>${karaf.version}</karafVersion>
+                    <!-- bootFeatures starts up these features when Karaf first boots up.
+                         The feature names are obtained from the features.xml in the
+                         dependencies section
+                     -->
                     <bootFeatures>
                         <feature>standard</feature>
                         <feature>config</feature>
@@ -94,6 +98,9 @@
                         <feature>management</feature>
                         <feature version="1.1.1">transaction</feature>
                     </bootFeatures>
+                    <!-- installedFeatures only installs the libraries but the user will
+                         have to start it up manually via Karaf command line feature:install
+                    -->
                     <installedFeatures>
                         <feature>scheduler</feature>
                         <feature>war</feature>
@@ -164,6 +171,8 @@
                                     <groupId>${project.groupId}</groupId>
                                     <artifactId>custom-karaf-branding</artifactId>
                                     <version>${project.version}</version>
+                                    <!-- target/assembly is the directory karaf-maven-plugin
+                                         assembles all the files of the Karaf server -->
                                     <outputDirectory>target/assembly/lib</outputDirectory>
                                     <destFileName>custom-karaf-branding.jar</destFileName>
                                 </artifactItem>
