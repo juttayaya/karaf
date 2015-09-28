@@ -98,8 +98,8 @@
                         <feature>management</feature>
                         <feature version="1.1.1">transaction</feature>
                     </bootFeatures>
-                    <!-- installedFeatures only installs the libraries but the user will
-                         have to start it up manually via Karaf command line feature:install
+                    <!-- installedFeatures only installs the libraries in the ${KARAF_HOME}/system directory
+                         but the user will have to start it up manually via Karaf command line feature:install
                     -->
                     <installedFeatures>
                         <feature>scheduler</feature>
