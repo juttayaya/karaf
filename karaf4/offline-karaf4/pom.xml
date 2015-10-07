@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.jirawat.karaf</groupId>
+    <artifactId>offline-karaf4</artifactId>
+    <version>1.0.0</version>
+    <name>jirawat.com :: Parent POM for Offline Karaf</name>
+    <description>Maven POM for Offline Karaf server</description>
+    <packaging>karaf-assembly</packaging>
+    <scm>
+        <connection>
+            scm:git:https://github.com/juttayaya/karaf.git
+        </connection>
+        <developerConnection>
+            scm:git:https://github.com/juttayaya/karaf.git
+        </developerConnection>
+    </scm>
+    <prerequisites>
+        <maven>3.0.3</maven>
+    </prerequisites>
+
+    <properties>
+        <karaf.version>4.0.0</karaf.version>
+        <camel.version>2.15.2</camel.version>
+        <!-- maven-compiler-plugin setting.
+             Karaf 3 runs on Java 7 or later -->
+        <!-- Specific Maven Plugin Versions -->
+        <!-- Karaf Maven Plugin does not have to be same as Karaf Server version
+             For example, Karaf Maven Plugin 3.0.2 has bug uploading to password protected Nexus Repo
+             So I used Karaf Maven Plugin 3.0.3 to build a Karaf 3.0.2 Server -->
+        <karaf.plugin.version>${karaf.version}</karaf.plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.reportEncoding>UTF-8</project.build.reportEncoding>
+    </properties>
+
+        <!-- Import Karaf POM to use the correct version of the Karaf dependencies -->
+    <dependencyManagement>
+    <dependencies>
+            <dependency>
+                <groupId>org.apache.karaf</groupId>
+                <artifactId>karaf</artifactId>
+                <version>${karaf.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <!-- scope is compile so all features (there is only one) are installed into startup.properties and
+                 the feature repo itself is not added in etc/org.apache.karaf.features.cfg file -->
+            <groupId>org.apache.karaf.features</groupId>
+            <artifactId>framework</artifactId>
+            <type>kar</type>
+            <version>${karaf.version}</version>
+
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <!-- Scope is runtime so the feature repo is listed in etc/org.apache.karaf.features.cfg file,
+                 and features will installed into the system directory.
+
+                 This imports the standard Karaf features described at
+                 https://repo1.maven.org/maven2/org/apache/karaf/features/standard/3.0.4/standard-3.0.4-features.xml
+                 These features are installed in the karaf-maven-plugin configuration
+            -->
+            <groupId>org.apache.karaf.features</groupId>
+            <artifactId>standard</artifactId>
+            <classifier>features</classifier>
+            <type>xml</type>
+            <version>${karaf.version}</version>
+
+            <scope>runtime</scope>
+        </dependency>
+        <!--
+            https://repo1.maven.org/maven2/org/apache/karaf/features/enterprise/3.0.4/enterprise-3.0.4-features.xml
+        -->
+        <dependency>
+            <groupId>org.apache.karaf.features</groupId>
+            <artifactId>enterprise</artifactId>
+            <classifier>features</classifier>
+            <type>xml</type>
+            <version>${karaf.version}</version>
+
+            <scope>runtime</scope>
+        </dependency>
+        <!-- https://repo1.maven.org/maven2/org/apache/camel/karaf/apache-camel/2.15.2/apache-camel-2.15.2-features.xml -->
+        <dependency>
+            <groupId>org.apache.camel.karaf</groupId>
+            <artifactId>apache-camel</artifactId>
+            <version>${camel.version}</version>
+            <classifier>features</classifier>
+            <type>xml</type>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- https://repo1.maven.org/maven2/org/apache/karaf/features/spring/3.0.4/spring-3.0.4-features.xml
+             Needed for Camel feature dependency
+        -->
+        <dependency>
+            <groupId>org.apache.karaf.features</groupId>
+            <artifactId>spring</artifactId>
+            <version>${karaf.version}</version>
+            <classifier>features</classifier>
+            <type>xml</type>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.karaf.tooling</groupId>
+                <artifactId>karaf-maven-plugin</artifactId>
+                <!-- Plugin requires at minimum 3.0.3 version for dependency=true bug fix
+                     https://issues.apache.org/jira/browse/KARAF-2596 -->
+                <version>${karaf.plugin.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <!-- karafVersion>${karaf.version}</karafVersion -->
+                    <!-- ignoreDependencyFlag is true forces plugin to also
+                         download feature dependent libraries -->
+                    <ignoreDependencyFlag>true</ignoreDependencyFlag>
+                    <!-- bootFeatures starts up these features when Karaf first boots up.
+                         The feature names are obtained from the features.xml in the
+                         dependencies section
+                     -->
+                    <bootFeatures>
+                        <feature>config</feature>
+                        <feature>system</feature>
+                        <feature>package</feature>
+                        <feature>kar</feature>
+                        <feature>ssh</feature>
+                        <feature>management</feature>
+                        <feature>shell</feature>
+                        <feature>feature</feature>
+                        <feature>deployer</feature>
+                        <feature>obr</feature>
+                        <feature>jaas</feature>
+                        <feature>jaas-boot</feature>
+                        <feature>bundle</feature>
+                        <feature>aries-blueprint</feature>
+                    </bootFeatures>
+                    -->
+                    <!-- installedFeatures only installs the libraries in the ${KARAF_HOME}/system directory
+                         but the user will have to start it up manually via Karaf command line feature:install
+                    -->
+                    <installedFeatures>
+                        <feature>wrap</feature>
+                        <feature>war</feature>
+                        <feature>webconsole</feature>
+                        <feature>jndi</feature>
+                        <feature>jpa</feature>
+                        <feature>openjpa</feature>
+                        <feature>jdbc</feature>
+                        <feature>jms</feature>
+                        <feature>transaction</feature>
+                        <feature>camel-quartz2</feature>
+                        <feature>camel-cxf</feature>
+                        <feature>camel-core</feature>
+                        <feature>camel</feature>
+                        <feature>spring</feature>
+                    </installedFeatures>
+                </configuration>
+            </plugin>
+            <!--
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                            -->
+                                <!-- Not all runtime library dependencies are listed in features.xml (bug?)
+                                     We have to help offline Karaf by manually downloading the missing dependencies
+                                 -->
+            <!--
+                                <artifactItem>
+                                    <groupId>org.apache.karaf.jaas</groupId>
+                                    <artifactId>org.apache.karaf.jaas.boot</artifactId>
+                                    <version>${karaf.version}</version>
+                                    <outputDirectory>target/assembly/system/org/apache/karaf/jaas/org.apache.karaf.jaas.boot</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+           -->
+        </plugins>
+    </build>
+    <repositories>
+        <!-- This is the repository location of org.eclipse.equinox:region:jar:1.0.0.v20110506
+             for the "region" Karaf feature
+         -->
+        <repository>
+            <id>servicemix</id>
+            <name>ServiceMix Repo for Karaf</name>
+            <url>http://svn.apache.org/repos/asf/servicemix/m2-repo</url>
+        </repository>
+    </repositories>
+</project>
