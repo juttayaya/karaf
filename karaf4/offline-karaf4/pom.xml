@@ -21,7 +21,7 @@
     </prerequisites>
 
     <properties>
-        <karaf.version>4.0.0</karaf.version>
+        <karaf.version>4.0.1</karaf.version>
         <camel.version>2.15.2</camel.version>
         <!-- maven-compiler-plugin setting.
              Karaf 3 runs on Java 7 or later -->
@@ -64,7 +64,7 @@
                  and features will installed into the system directory.
 
                  This imports the standard Karaf features described at
-                 https://repo1.maven.org/maven2/org/apache/karaf/features/standard/3.0.4/standard-3.0.4-features.xml
+                 https://repo1.maven.org/maven2/org/apache/karaf/features/standard/4.0.1/standard-4.0.1-features.xml
                  These features are installed in the karaf-maven-plugin configuration
             -->
             <groupId>org.apache.karaf.features</groupId>
@@ -76,7 +76,7 @@
             <scope>runtime</scope>
         </dependency>
         <!--
-            https://repo1.maven.org/maven2/org/apache/karaf/features/enterprise/3.0.4/enterprise-3.0.4-features.xml
+            https://repo1.maven.org/maven2/org/apache/karaf/features/enterprise/4.0.1/enterprise-4.0.1-features.xml
         -->
         <dependency>
             <groupId>org.apache.karaf.features</groupId>
@@ -96,7 +96,7 @@
             <type>xml</type>
             <scope>runtime</scope>
         </dependency>
-        <!-- https://repo1.maven.org/maven2/org/apache/karaf/features/spring/3.0.4/spring-3.0.4-features.xml
+        <!-- https://repo1.maven.org/maven2/org/apache/karaf/features/spring/4.0.1/spring-4.0.1-features.xml
              Needed for Camel feature dependency
         -->
         <dependency>
@@ -136,7 +136,6 @@
                         <feature>shell</feature>
                         <feature>feature</feature>
                         <feature>deployer</feature>
-                        <feature>obr</feature>
                         <feature>jaas</feature>
                         <feature>jaas-boot</feature>
                         <feature>bundle</feature>
@@ -148,6 +147,7 @@
                     -->
                     <installedFeatures>
                         <feature>wrap</feature>
+                        <feature>obr</feature>
                         <feature>war</feature>
                         <feature>webconsole</feature>
                         <feature>jndi</feature>
