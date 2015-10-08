@@ -24,7 +24,7 @@
         <karaf.version>4.0.1</karaf.version>
         <camel.version>2.15.2</camel.version>
         <!-- maven-compiler-plugin setting.
-             Karaf 3 runs on Java 7 or later -->
+             Karaf 4 runs on Java 7 or later -->
         <!-- Specific Maven Plugin Versions -->
         <!-- Karaf Maven Plugin does not have to be same as Karaf Server version
              For example, Karaf Maven Plugin 3.0.2 has bug uploading to password protected Nexus Repo
@@ -118,9 +118,6 @@
                 <version>${karaf.plugin.version}</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <!-- karafVersion>${karaf.version}</karafVersion -->
-                    <!-- ignoreDependencyFlag is true forces plugin to also
-                         download feature dependent libraries -->
                     <ignoreDependencyFlag>false</ignoreDependencyFlag>
                     <!-- bootFeatures starts up these features when Karaf first boots up.
                          The feature names are obtained from the features.xml in the
