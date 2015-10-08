@@ -146,6 +146,8 @@
                         <feature>ssh</feature>
                         <feature>management</feature>
                         <feature>wrap</feature>
+                        <feature>camel-core</feature>
+                        <feature>camel</feature>
                     </bootFeatures>
                     <!-- installedFeatures only installs the libraries in the ${KARAF_HOME}/system directory
                          but the user will have to start it up manually via Karaf command line feature:install
@@ -162,8 +164,6 @@
                         <feature>transaction</feature>
                         <feature>camel-quartz2</feature>
                         <feature>camel-cxf</feature>
-                        <feature>camel-core</feature>
-                        <feature>camel</feature>
                         <feature>spring</feature>
                     </installedFeatures>
                 </configuration>
